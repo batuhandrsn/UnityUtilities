@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class CameraExtensions
+public static partial class Extensions
 {
     public static Camera GetActiveCamera()
     {

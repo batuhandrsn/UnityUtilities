@@ -1,6 +1,10 @@
 {
-  "name": "blank-package-template",
-  "version": "0.0.0",
-  "displayName": "Blank Package Template",
-  "description": "Blank package template placeholder description."
+  "name": "frutbn.unityutilities",
+  "displayName": "Unity Utilities",
+  "unity": "2021.3",
+  "version": "1.0.0",
+  "description": "Unity utility functions & extensions",
+  "keywords": ["Utilities"],
+  "license": "MIT",
+  "licensesUrl": "https://github.com/frutbn/UnityUtilities/blob/master/LICENSE"
 }

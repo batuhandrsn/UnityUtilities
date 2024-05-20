@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public static class ColorExtensions
+public static partial class Extensions
 {
     public static Color ToColor(this string strColor)
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class CollectionExtensions
+public static partial class Extensions
 {
     public static T GetRandom<T>(this IList<T> collection)
     {
