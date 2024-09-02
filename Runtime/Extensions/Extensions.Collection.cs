@@ -24,4 +24,48 @@ public static partial class Extensions
         var randomIndex = Random.Range(0, collection.Length);
         return collection[randomIndex];
     }
+
+    /// <summary>
+    /// Shuffles the elements of the list in a random order using the Fisher-Yates algorithm.
+    /// </summary>
+    public static void Shuffle<T>(this IList<T> list)
+    {
+        if (list == null || list.Count <= 1) return;
+
+        for (var i = list.Count - 1; i > 0; i--)
+        {
+            var j = Random.Range(0, i + 1);
+            Swap(list, i, j);
+        }
+    }
+
+    /// <summary>
+    /// Shuffles the elements of the array in a random order using the Fisher-Yates algorithm.
+    /// </summary>
+    public static void Shuffle<T>(this T[] array)
+    {
+        if (array == null || array.Length <= 1) return;
+
+        for (var i = array.Length - 1; i > 0; i--)
+        {
+            var j = Random.Range(0, i + 1);
+            Swap(array, i, j);
+        }
+    }
+
+    /// <summary>
+    /// Swaps the elements at the specified indices in the list.
+    /// </summary>
+    private static void Swap<T>(IList<T> list, int i, int j)
+    {
+        (list[i], list[j]) = (list[j], list[i]);
+    }
+
+    /// <summary>
+    /// Swaps the elements at the specified indices in the array.
+    /// </summary>
+    private static void Swap<T>(T[] array, int i, int j)
+    {
+        (array[i], array[j]) = (array[j], array[i]);
+    }
 }
