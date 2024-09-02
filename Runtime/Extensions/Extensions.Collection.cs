@@ -56,7 +56,7 @@ public static partial class Extensions
     /// <summary>
     /// Swaps the elements at the specified indices in the list.
     /// </summary>
-    private static void Swap<T>(IList<T> list, int i, int j)
+    public static void Swap<T>(IList<T> list, int i, int j)
     {
         (list[i], list[j]) = (list[j], list[i]);
     }
@@ -64,7 +64,7 @@ public static partial class Extensions
     /// <summary>
     /// Swaps the elements at the specified indices in the array.
     /// </summary>
-    private static void Swap<T>(T[] array, int i, int j)
+    public static void Swap<T>(T[] array, int i, int j)
     {
         (array[i], array[j]) = (array[j], array[i]);
     }
