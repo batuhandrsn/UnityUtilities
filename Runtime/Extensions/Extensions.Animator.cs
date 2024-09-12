@@ -2,17 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class AnimatorHelper
+public static partial class Extensions
 {
-    public struct AnimatorRuntimeParameter
-    {
-        public AnimatorControllerParameterType Type { get; set; }
-        public int NameHash { get; set; }
-        public float FloatValue { get; set; }
-        public int IntValue { get; set; }
-        public bool BoolValue { get; set; }
-    }
-
     /// <summary>
     /// Copies the avatar and runtime animator controller from one Animator to another and then rebinds the target Animator.
     /// </summary>
@@ -104,4 +95,13 @@ public static class AnimatorHelper
 
         return true;
     }
+}
+
+public struct AnimatorRuntimeParameter
+{
+    public AnimatorControllerParameterType Type { get; set; }
+    public int NameHash { get; set; }
+    public float FloatValue { get; set; }
+    public int IntValue { get; set; }
+    public bool BoolValue { get; set; }
 }
