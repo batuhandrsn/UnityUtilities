@@ -68,4 +68,40 @@ public static partial class Extensions
     {
         (array[i], array[j]) = (array[j], array[i]);
     }
+
+    /// <summary>
+    /// Returns the element at the specified index, or the last element if the index is out of range.
+    /// </summary>
+    public static T GetClamped<T>(this IList<T> list, int index)
+    {
+        if (list == null || list.Count == 0) return default;
+        return list[index >= list.Count ? ^1 : 0 > index ? 0 : index];
+    }
+
+    /// <summary>
+    /// Returns the element at the specified index, or the last element if the index is out of range.
+    /// </summary>
+    public static T GetClamped<T>(this T[] array, int index)
+    {
+        if (array == null || array.Length == 0) return default;
+        return array[index >= array.Length ? ^1 : 0 > index ? 0 : index];
+    }
+
+    /// <summary>
+    /// Returns the element at the specified index, wrapping around if index exceeds collection size.
+    /// </summary>
+    public static T GetWrapped<T>(this IList<T> list, int index)
+    {
+        if (list == null || list.Count == 0 || 0 > index) return default;
+        return list[index % list.Count];
+    }
+
+    /// <summary>
+    /// Returns the element at the specified index, wrapping around if index exceeds array length.
+    /// </summary>
+    public static T GetWrapped<T>(this T[] array, int index)
+    {
+        if (array == null || array.Length == 0 || 0 > index) return default;
+        return array[index % array.Length];
+    }
 }
