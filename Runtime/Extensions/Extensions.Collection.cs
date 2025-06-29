@@ -104,4 +104,11 @@ public static partial class Extensions
         if (array == null || array.Length == 0 || 0 > index) return default;
         return array[index % array.Length];
     }
+
+    public static void AddRange<T>(this HashSet<T> hashSet, IEnumerable<T> collection)
+    {
+        if (hashSet == null) return;
+        using var enumerator = collection.GetEnumerator();
+        while (enumerator.MoveNext()) hashSet.Add(enumerator.Current);
+    }
 }
