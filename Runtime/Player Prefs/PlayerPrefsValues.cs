@@ -11,21 +11,22 @@ public struct PlayerPrefsInt
         _key = key;
         _defaultValue = 0;
     }
-    
+
     public PlayerPrefsInt(string key, int defaultValue)
     {
         _key = key;
         _defaultValue = defaultValue;
     }
-    
+
     public int Value
     {
         get => PlayerPrefs.GetInt(_key, _defaultValue);
         set => PlayerPrefs.SetInt(_key, value);
     }
-    
+
     public void Set(int value) => Value = value;
     public bool HasValue() => PlayerPrefs.HasKey(_key);
+    public void DeleteValue() => PlayerPrefs.DeleteKey(_key);
     public static implicit operator int(PlayerPrefsInt playerPrefs) => playerPrefs.Value;
 }
 
@@ -39,21 +40,22 @@ public struct PlayerPrefsFloat
         _key = key;
         _defaultValue = 0f;
     }
-    
+
     public PlayerPrefsFloat(string key, float defaultValue)
     {
         _key = key;
         _defaultValue = defaultValue;
     }
-    
+
     public float Value
     {
         get => PlayerPrefs.GetFloat(_key, _defaultValue);
         set => PlayerPrefs.SetFloat(_key, value);
     }
-    
+
     public void Set(float value) => Value = value;
     public bool HasValue() => PlayerPrefs.HasKey(_key);
+    public void DeleteValue() => PlayerPrefs.DeleteKey(_key);
     public static implicit operator float(PlayerPrefsFloat playerPrefs) => playerPrefs.Value;
 }
 
@@ -67,21 +69,22 @@ public struct PlayerPrefsString
         _key = key;
         _defaultValue = string.Empty;
     }
-    
+
     public PlayerPrefsString(string key, string defaultValue)
     {
         _key = key;
         _defaultValue = defaultValue;
     }
-    
+
     public string Value
     {
         get => PlayerPrefs.GetString(_key, _defaultValue);
         set => PlayerPrefs.SetString(_key, value);
     }
-    
+
     public void Set(string value) => Value = value;
     public bool HasValue() => PlayerPrefs.HasKey(_key);
+    public void DeleteValue() => PlayerPrefs.DeleteKey(_key);
     public static implicit operator string(PlayerPrefsString playerPrefs) => playerPrefs.Value;
 }
 
@@ -95,13 +98,13 @@ public struct PlayerPrefsBool
         _key = key;
         _defaultValue = false;
     }
-    
+
     public PlayerPrefsBool(string key, bool defaultValue)
     {
         _key = key;
         _defaultValue = defaultValue;
     }
-    
+
     public bool Value
     {
         get
@@ -114,6 +117,7 @@ public struct PlayerPrefsBool
 
     public void Set(bool value) => Value = value;
     public bool HasValue() => PlayerPrefs.HasKey(_key);
+    public void DeleteValue() => PlayerPrefs.DeleteKey(_key);
     public static implicit operator bool(PlayerPrefsBool playerPrefs) => playerPrefs.Value;
 }
 
@@ -127,13 +131,13 @@ public struct PlayerPrefsEnum<TEnum> where TEnum : struct
         _key = key;
         _defaultValue = Enum.Parse<TEnum>(Enum.GetValues(typeof(TEnum)).GetValue(0).ToString());
     }
-    
+
     public PlayerPrefsEnum(string key, TEnum defaultValue)
     {
         _key = key;
         _defaultValue = defaultValue;
     }
-    
+
     public TEnum Value
     {
         get
@@ -143,8 +147,9 @@ public struct PlayerPrefsEnum<TEnum> where TEnum : struct
         }
         set => PlayerPrefs.SetString(_key, value.ToString());
     }
-    
+
     public void Set(TEnum value) => Value = value;
     public bool HasValue() => PlayerPrefs.HasKey(_key);
+    public void DeleteValue() => PlayerPrefs.DeleteKey(_key);
     public static implicit operator TEnum(PlayerPrefsEnum<TEnum> playerPrefs) => playerPrefs.Value;
 }
