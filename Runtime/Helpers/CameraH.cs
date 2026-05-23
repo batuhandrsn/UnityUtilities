@@ -1,7 +1,6 @@
-using System.Linq;
 using UnityEngine;
 
-public static class CameraHelper
+public static class CameraH
 {
     /// <summary>
     /// Gets the active camera based on the highest depth and enabled state.
@@ -12,9 +11,14 @@ public static class CameraHelper
         var allCameras = Camera.allCameras;
         if (allCameras == null || allCameras.Length == 0) return null;
 
-        return allCameras
-            .Where(cam => cam.enabled)
-            .OrderByDescending(cam => cam.depth)
-            .FirstOrDefault();
+        Camera activeCamera = null;
+        foreach (var camera in allCameras)
+        {
+            if (!camera.enabled) continue;
+            if (activeCamera != null && activeCamera.depth > camera.depth) continue;
+            activeCamera = camera;
+        }
+
+        return activeCamera;
     }
 }

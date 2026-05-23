@@ -54,6 +54,102 @@ public static partial class Extensions
     }
 
     /// <summary>
+    /// Shuffles the elements of the list ensuring no element remains in its original position (derangement).
+    /// Note: Requires at least 2 elements.
+    /// </summary>
+    public static void ShuffleDeranged<T>(this IList<T> list)
+    {
+        if (list == null || list.Count < 2) return;
+
+        // Use rejection sampling: keep shuffling until we get a valid derangement
+        const int maxAttempts = 100;
+        var attempts = 0;
+        bool isDerangement;
+
+        // Store original positions
+        var originalPositions = new T[list.Count];
+        for (var i = 0; i < list.Count; i++) originalPositions[i] = list[i];
+
+        do
+        {
+            list.Shuffle();
+
+            // Check if it's a derangement (no element in original position)
+            isDerangement = true;
+            for (var i = 0; i < list.Count; i++)
+            {
+                if (EqualityComparer<T>.Default.Equals(list[i], originalPositions[i]))
+                {
+                    isDerangement = false;
+                    break;
+                }
+            }
+
+            attempts++;
+        } while (!isDerangement && attempts < maxAttempts);
+
+        // Fallback: if rejection sampling fails, use deterministic approach
+        if (!isDerangement)
+        {
+            // Simple swap: move each element to next position (cycling)
+            var temp = list[0];
+            for (var i = 0; i < list.Count - 1; i++)
+            {
+                list[i] = list[i + 1];
+            }
+            list[^1] = temp;
+        }
+    }
+
+    /// <summary>
+    /// Shuffles the elements of the array ensuring no element remains in its original position (derangement).
+    /// Note: Requires at least 2 elements.
+    /// </summary>
+    public static void ShuffleDeranged<T>(this T[] array)
+    {
+        if (array == null || array.Length < 2) return;
+
+        // Use rejection sampling: keep shuffling until we get a valid derangement
+        const int maxAttempts = 100;
+        var attempts = 0;
+        bool isDerangement;
+
+        // Store original positions
+        var originalPositions = new T[array.Length];
+        for (var i = 0; i < array.Length; i++) originalPositions[i] = array[i];
+
+        do
+        {
+            array.Shuffle();
+
+            // Check if it's a derangement (no element in original position)
+            isDerangement = true;
+            for (var i = 0; i < array.Length; i++)
+            {
+                if (EqualityComparer<T>.Default.Equals(array[i], originalPositions[i]))
+                {
+                    isDerangement = false;
+                    break;
+                }
+            }
+
+            attempts++;
+        } while (!isDerangement && attempts < maxAttempts);
+
+        // Fallback: if rejection sampling fails, use deterministic approach
+        if (!isDerangement)
+        {
+            // Simple swap: move each element to next position (cycling)
+            var temp = array[0];
+            for (var i = 0; i < array.Length - 1; i++)
+            {
+                array[i] = array[i + 1];
+            }
+            array[^1] = temp;
+        }
+    }
+
+    /// <summary>
     /// Swaps the elements at the specified indices in the list.
     /// </summary>
     public static void Swap<T>(this IList<T> list, int i, int j)
