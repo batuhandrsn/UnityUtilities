@@ -4,6 +4,7 @@
     "Editor"
   ],
   "references": [
+    "UnityUtilities.Runtime",
     "Unity.Addressables",
     "Unity.ResourceManager"
   ],

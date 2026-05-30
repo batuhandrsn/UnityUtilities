@@ -1,27 +1,34 @@
 using System;
-using System.Linq;
-using System.Reflection;
 using UnityEditor;
+using UnityEngine;
 
-public sealed class ScriptBuilderEditorHelper
+public static class ScriptBuilderEditorHelper
 {
     [MenuItem("Tools/Script Builder/Build All")]
     public static void UpdateScriptBuilders()
     {
-        UpdateAllSubclasses();
+        try
+        {
+            UpdateAllSubclasses();
+        }
+        finally
+        {
+            Debug.Log("All scripts built.");
+            EditorUtility.ClearProgressBar();
+        }
     }
 
     private static void UpdateAllSubclasses()
     {
-        var subclassTypes = Assembly
-            .GetAssembly(typeof(IScriptBuilderTarget))
-            .GetTypes()
-            .Where(t => typeof(IScriptBuilderTarget).IsAssignableFrom(t) && t.IsClass);
-
-        foreach (var subclassType in subclassTypes)
+        var subclassTypes = TypeCache.GetTypesDerivedFrom<IScriptBuilderTarget>();
+        for (var i = 0; i < subclassTypes.Count; i++)
         {
+            var subclassType = subclassTypes[i];
             var builder = Activator.CreateInstance(subclassType) as IScriptBuilderTarget;
-            builder?.Build();
+            if (builder == null) continue;
+            var progress = (float)i / subclassTypes.Count;
+            EditorUtility.DisplayProgressBar("Building scripts", subclassType.Name, progress);
+            builder.Build();
         }
     }
 }

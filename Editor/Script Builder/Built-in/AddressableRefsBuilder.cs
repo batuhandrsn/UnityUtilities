@@ -3,9 +3,9 @@ using UnityEngine.AddressableAssets;
 
 public sealed class AddressableRefsBuilder : IScriptBuilderTarget
 {
-    public async void Build()
+    public void Build()
     {
-        await Addressables.InitializeAsync().Task;
+        Addressables.InitializeAsync().WaitForCompletion();
         var builder = new ScriptBuilder(new ScriptBuildContext("AddressableRefs", "public static class {0}"));
         foreach (var resourceLocator in Addressables.ResourceLocators)
         {
